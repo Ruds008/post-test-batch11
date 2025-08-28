@@ -2,109 +2,179 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>POST TEST BATCH 11</title>
+  <title>POST TEST KOPRA</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
     }
-
-    .navbar {
-      background-color: #f5f5f5;
-      padding: 10px;
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 15px 20px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
     }
-
-    .menu-icon {
-      font-size: 24px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-
-    .breadcrumbs {
-      text-decoration: none;
-      color: #333;
+    .timer {
       font-weight: bold;
+      font-size: 18px;
     }
-
-    .main-content {
-      flex: 1;
+    .container {
       padding: 20px;
-      text-align: center;
     }
-
-    .timer-container {
-      margin-top: 20px;
-      font-size: 2em;
+    .question {
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-
-    .timer-label {
-      font-size: 0.8em;
-      color: #555;
+    .question h3 {
+      margin-top: 0;
     }
-
-    .pdf-container {
-      margin-top: 30px;
+    .options label {
+      display: block;
+      margin: 8px 0;
     }
-
+    .mark {
+      color: #007bff;
+      cursor: pointer;
+      font-size: 14px;
+    }
     .footer {
-      background-color: #f0f0f0;
-      padding: 10px;
-      text-align: center;
-      font-size: 0.9em;
-      color: #777;
+      text-align: right;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <span class="menu-icon">☰</span>
-    <a href="#" class="breadcrumbs">POST TEST &gt; PROGRAM SDP - BATCH 11</a>
-  </nav>
 
-  <main class="main-content">
-    <h1>Test - PROGRAM SDP - BATCH 11</h1>
-    <div class="timer-container">
-      <div id="timer">30:00</div>
-      <div class="timer-label">Time remaining</div>
-    </div>
+  <header>
+    <div><strong>POST TEST KOPRA</strong></div>
+    <div class="timer">Sisa waktu: <span id="countdown">45:00</span></div>
+  </header>
 
-    <!-- PDF akan tampil di sini -->
-    <div class="pdf-container">
-      <embed src="kopra.pdf" type="application/pdf" width="100%" height="600px" />
-    </div>
-  </main>
-
-  <footer class="footer">
-    PT. Bank Mandiri (Persero) Tbk.
-  </footer>
+  <div class="container" id="questionContainer">
+    <!-- Soal akan dimasukkan di sini oleh JavaScript -->
+  </div>
 
   <script>
-    // Timer countdown 30 menit
-    let time = 30 * 60; 
-    const timerElement = document.getElementById("timer");
-
-    function updateTimer() {
-      const minutes = Math.floor(time / 60);
-      const seconds = time % 60;
-      timerElement.textContent = 
-        `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
-      time--;
-
-      if (time < 0) {
-        clearInterval(timerInterval);
-        timerElement.textContent = "Waktu Habis";
+    const questions = [
+      {
+        q: "Nasabah dapat mendaftarkan layanan Trade dan Guarantee secara online dengan layanan?",
+        a: ["Online Onboarding Value Chain", "Online Onboarding Mandiri Global Trade", "Online Onboarding Mandiri Smart Account", "Online Onboarding Mandiri Cash Management"]
+      },
+      {
+        q: "Cara membuka rekening giro dalam Kopra bagi nasabah New to Bank adalah?",
+        a: ["Membuka landing page awal dan klik menu pembukaan rekening giro untuk nasabah new to bank dengan mengisi eForm", "Melalui halaman registrasi value chain di dalam menu Kopra", "Membuka landing page awal dan klik menu pembukaan rekening giro untuk nasabah existing giro", "Log in ke Kopra dan masuk menu pendaftaran giro online untuk nasabah new to bank"]
+      },
+      {
+        q: "Apa itu varian solusi Partnership Based Kopra?",
+        a: ["Integrasi langsung antara sistem nasabah dan Bank Mandiri", "Integrasi KOPRA dengan vendor pihak ketiga (Pajakku, Crowdee, Jurnal, iSeller, etc.)", "Solusi berbasis portal web Kopra"]
+      },
+      {
+        q: "Apa tahapan yang harus dilakukan oleh nasabah saat menggunakan layanan Aplikasi Pembukaan Rekening Giro?",
+        a: ["Isi eForm di Landing Page atau Account Registration lalu datang ke Kantor Cabang", "Cukup isi eForm tanpa proses KYC"]
+      },
+      {
+        q: "Berapa banyak portal layanan Bank Mandiri yang dapat diakses melalui Portal Kopra?",
+        a: ["8 portal layanan", "2 portal layanan", "12 portal layanan", "3 portal layanan"]
+      },
+      {
+        q: "Nasabah dapat mendaftarkan layanan Supply Chain Management secara online dengan layanan?",
+        a: ["Online Onboarding Mandiri Financial Supply Chain Management", "Online Onboarding Mandiri Global Trade", "Online Onboarding Mandiri Smart Account", "Online Onboarding Mandiri Cash Management"]
+      },
+      {
+        q: "Jika nasabah UMKM ingin melakukan pembayaran dan cek saldo, layanan yang ditawarkan adalah?",
+        a: ["Kopra MCM", "Kopra MGT", "Kopra MCM Lite", "Kopra Smart Account"]
+      },
+      {
+        q: "Apa yang harus dilakukan jika user Sysadmin nasabah terkunci?",
+        a: ["Hubungi Kopra Helpdesk dengan Company ID dan User ID", "Tidak bisa melakukan apa-apa", "Nasabah dapat unlock sendiri"]
+      },
+      {
+        q: "Apa yang harus dilakukan jika user transaksional nasabah terkunci?",
+        a: ["Hubungi Sysadmin untuk unlock", "Akun akan terkunci selamanya"]
+      },
+      {
+        q: "Aktivitas keuangan yang dapat dilakukan melalui Kopra Mobile App?",
+        a: ["Pengecekan saldo", "Persetujuan transaksi", "Pembayaran QRIS", "Tarik tunai"]
+      },
+      {
+        q: "Fitur dalam Kopra yang dapat melihat limit tersedia untuk Trade dan Supply Chain?",
+        a: ["Consolidated Financial Dashboard"]
+      },
+      {
+        q: "Fitur unggulan untuk melacak status transaksi valas?",
+        a: ["Remittance Tracking"]
+      },
+      {
+        q: "Error CHANNELACCESS-006 dapat diatasi dengan?",
+        a: ["Melakukan unlink terlebih dahulu"]
+      },
+      {
+        q: "Error akses ke fitur Kopra dapat diatasi dengan?",
+        a: ["Setting browser untuk mengizinkan pop-up"]
+      },
+      {
+        q: "Fitur sysadmin Kopra untuk memaksa logout Company Admin?",
+        a: ["Release Session"]
+      },
+      {
+        q: "Unlock pada menu Bank Admin BBO Kopra dilakukan setelah salah password sebanyak?",
+        a: ["5 kali"]
+      },
+      {
+        q: "Kopra yang menghubungkan jaringan nasabah dan Mandiri secara langsung disebut?",
+        a: ["Kopra H2H"]
+      },
+      {
+        q: "Kopra Portal dapat diakses melalui?",
+        a: ["https://kopra.bankmandiri.co.id"]
+      },
+      {
+        q: "Kopra dan Livin sejalan dengan semangat?",
+        a: ["Mandiri jadi Digital"]
+      },
+      {
+        q: "Jenis Kopra berikut yang bukan termasuk kategori?",
+        a: ["Kopra Assistant"]
       }
-    }
+    ];
 
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
+    const container = document.getElementById("questionContainer");
+
+    questions.forEach((item, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      const qNum = index + 1;
+      div.innerHTML = `<h3>${qNum}. ${item.q}</h3>`;
+      const options = document.createElement("div");
+      options.className = "options";
+      item.a.forEach((opt, i) => {
+        const optId = `q${qNum}_opt${i}`;
+        options.innerHTML += `<label><input type="radio" name="q${qNum}" id="${optId}"> ${opt}</label>`;
+      });
+      div.appendChild(options);
+      div.innerHTML += `<div class="mark">🔖 Tandai untuk ditinjau</div>`;
+      container.appendChild(div);
+    });
+
+    // Timer
+    let seconds = 45 * 60;
+    const countdownEl = document.getElementById("countdown");
+    setInterval(() => {
+      if (seconds > 0) {
+        seconds--;
+        const min = Math.floor(seconds / 60);
+        const sec = seconds % 60;
+        countdownEl.textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+      }
+    }, 1000);
   </script>
+
 </body>
 </html>
 
